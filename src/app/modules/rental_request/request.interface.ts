@@ -1,13 +1,10 @@
 import { ObjectId } from 'mongoose';
 
-export type TOrder = {
-    user: ObjectId;
-    products: {
-        product: ObjectId;
-        quantity: number;
-        price: number;
-    }[];
-    status: "Pending" | "Paid" | "Shipped" | "Completed" | "Cancelled";
+export interface IRentalRequest {
+    house: ObjectId;
+    tenant: ObjectId;
+    status: "Pending" | "Approved" | "Rejected";
+    landlord_phone: string;
     transaction: {
         id: string;
         transactionStatus: string;
@@ -17,5 +14,5 @@ export type TOrder = {
         method: string;
         date_time: string;
     };
-    totalPrice: number;
+    payment_status: "Pending" | "Paid" | "Cancelled";
 }
