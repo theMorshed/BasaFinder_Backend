@@ -1,25 +1,24 @@
-# Bike Store Application
+# BasaFinder Backend Application
 
-This is a simple application for managing a bike store. It includes functionalities for managing bike products and handling customer orders. The application uses **MongoDB**, **Express**, **Node.js**, and **TypeScript** to provide a complete solution for managing products and orders in the store.
+This is a simple application for managing a House rent. It includes functionalities for managing houses and handling landlord and tenants. The application uses **MongoDB**, **Express**, **Node.js**, and **TypeScript** to provide a complete solution for managing houses and rental requests in the application.
 
 ## Features
 
--   **Product Management:**
+-   **House Management:**
 
-    -   Create, read, update, and delete bike products.
-    -   Search for bikes by name, brand, or category.
-    -   Display details for individual bike products.
+    -   Create, read, update, and delete house.
+    -   Search for house by location, price, or bedrooms.
+    -   Display details for individual house.
 
--   **Order Management:**
+-   **Requests Management:**
 
-    -   Place orders for bikes.
-    -   Track orders based on customer email and product details.
+    -   Place orders for house.
+    -   Track orders based on customer email and house details.
     -   Reduce stock and manage inventory when an order is placed.
-    -   Calculate total revenue from all orders.
 
 -   **Inventory Management:**
 
-    -   Automatically update stock levels after an order is placed.
+    -   Automatically update stock levels after an request is placed.
     -   Set a product’s status to "Out of Stock" when inventory reaches zero.
 
 -   **Revenue Calculation:**
@@ -49,7 +48,7 @@ Before running the project locally, make sure you have the following installed:
 Clone this repository to your local machine using the following command:
 
 ```bash
-git clone https://github.com/theMorshed/bike_store_rest_api.git
+git clone https://github.com/theMorshed/BasaFinder_Backend.git
 ```
 
 ### 2. Install Dependencies
@@ -57,7 +56,7 @@ git clone https://github.com/theMorshed/bike_store_rest_api.git
 Navigate to the project directory and install all required dependencies:
 
 ```bash
-cd bike_store_rest_api
+cd BasaFinder_Backend
 npm install
 ```
 
@@ -67,7 +66,7 @@ Create a .env file in the root directory of the project, and set the following e
 
 ```bash
 PORT=5000
-DATABASE_URL=mongodb://localhost:27017/bikestore(you will get this api from mongodb atlas)
+DATABASE_URL=mongodb://localhost:27017/BasaFinder_Backend(you will get this api from mongodb atlas)
 ```
 
 -   **PORT:** – The port on which the server will run.
@@ -93,18 +92,29 @@ http://localhost:5000
 
 ## 6. API Endpoints
 
-### Product Management:
+### Tenants:
 
--   **POST /api/products**: Create a new product.
--   **GET /api/products**: Get a list of all bikes. Optionally, you can query by name, brand, or category (e.g., `/api/products?searchTerm=Mountain`).
--   **GET /api/products/:productId**: Get details of a single bike.
--   **PUT /api/products/:productId**: Update bike details.
--   **DELETE /api/products/:productId**: Delete a bike.
+-   **POST** /tenants/requests: Create a new rental request for a house.
+-   **GET** /tenants/requests: Retrieve all rental requests submitted by the tenant.
+-   **PUT** /tenants/profile: Update tenant profile.
 
-### Order Management:
+### Landlords:
 
--   **POST /api/orders**: Create an order (send email, product ID, and quantity).
--   **GET /api/orders/revenue**: Calculate the total revenue generated from all orders.
+-   **POST** /landlords/listings: Create a new rental house listing.
+-   **GET** /landlords/listings: Retrieve all rental listings posted by the landlord.
+-   **PUT** /landlords/listings/:id: Update a specific rental listing.
+-   **DELETE** /landlords/listings/:id: Remove a rental listing.
+-   **GET** /landlords/requests: Retrieve all rental requests for the listings posted by the -  landlord.
+-   **PUT** /landlords/requests/:id: Respond to a rental request by approving or rejecting it. If approved: The payment process initiate and a simple input field appears for the landlord to enter their phone number. This number is saved and made available to the tenant.
+
+### Admin: 
+
+-   **GET** /admin/users: Retrieve all user(tenants, landlords) accounts.
+-   **PUT** /admin/users/:id: Update user roles.
+-   **DELETE** /admin/user/:id: Delete user.
+-   **GET** /admin/listings: Retrieve all rental house listings.
+-   **PUT** /admin/listings/:id: Update or moderate a rental listing.
+-   **DELETE** /admin/listings/:id: Remove a rental listing if necessary.
 
 ## 7. Testing
 
