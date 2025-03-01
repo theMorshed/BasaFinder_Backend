@@ -1,5 +1,5 @@
-import { TProduct } from "./bike_type";
-import ProductModel from "./bike_model";
+import { TProduct } from "./house.types";
+import ProductModel from "./house.model";
 import QueryBuilder from "../../builder/QueryBuilder";
 
 /**

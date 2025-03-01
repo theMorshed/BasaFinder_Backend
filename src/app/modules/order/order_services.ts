@@ -1,6 +1,6 @@
 import { TOrder } from "./order_type";
 import OrderModel from "./order_model";
-import ProductModel from "../product/bike_model";
+import ProductModel from "../house/house.model";
 import AppError from "../../errors/AppError";
 import { StatusCodes } from "http-status-codes";
 import User from "../user/user.model";

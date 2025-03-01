@@ -28,7 +28,8 @@ export const register = catchAsync(async (req, res) => {
     const result = {
         _id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role
     }
 
     sendResponse(res, {

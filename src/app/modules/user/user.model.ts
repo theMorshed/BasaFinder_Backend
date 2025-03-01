@@ -1,43 +1,10 @@
-/**
- * Import Statements
- * 
- * - `model`, `Model`, `Schema`: Imported from Mongoose to define the User schema and model.
- * - `TUser`: TypeScript type for the User entity, ensuring type safety.
- * - `config`: Configuration file for accessing environment variables like bcrypt salt rounds.
- * - `bcrypt`: Library used for hashing passwords to enhance security.
- */
 import { model, Model, Schema } from "mongoose";
-import { TUser } from "./user.types";
 import config from "../../config";
 import bcrypt from 'bcryptjs';
-
-/**
- * User Schema and Model
- * 
- * This file defines the Mongoose schema and model for the User entity. It includes the structure,
- * validation rules, and middleware functions to manage user data securely and efficiently.
- * 
- * Schema Fields:
- * - `name`: The full name of the user. Required and trimmed.
- * - `email`: The email address of the user. Required, unique, and validated with a regex pattern.
- * - `password`: The hashed password for the user. Required and validated for a minimum length.
- * - `role`: The role of the user, which can be 'user' or 'admin'. Defaults to 'user'.
- * - `isBlocked`: Indicates whether the user is blocked. Defaults to `false`.
- * - Timestamps: Automatically includes `createdAt` and `updatedAt` fields.
- * 
- * Middleware:
- * - Pre-save: Hashes the password using bcrypt before saving the user document.
- * - Post-save: Clears the password field in the saved document to enhance security.
- * 
- * Custom Behavior:
- * - `toJSON` transformation: Removes `__v`, `createdAt`, and `updatedAt` fields from the response.
- * 
- * Export:
- * - The `User` model is exported for use in the application to interact with the User collection.
- */
+import { IUser } from "./user.interface";
 
 // Create the User Schema
-const UserSchema: Schema<TUser> = new Schema(
+const UserSchema: Schema<IUser> = new Schema(
 {
     name: {
         type: String,
@@ -57,7 +24,7 @@ const UserSchema: Schema<TUser> = new Schema(
     },
     role: {
         type: String,        
-        default: 'customer'
+        default: 'tenant'
     },
     isBlocked: {
         type: Boolean,
@@ -65,7 +32,7 @@ const UserSchema: Schema<TUser> = new Schema(
     }
 },
     {
-        timestamps: true, // Automatically adds createdAt and updatedAt fields
+        timestamps: true
     }
 );
 
@@ -105,6 +72,6 @@ UserSchema.set('toJSON', {
  * 
  * The `User` model provides an interface to interact with the User collection in the MongoDB database.
  */
-const User: Model<TUser> = model<TUser>('User', UserSchema);
+const User: Model<IUser> = model<IUser>('User', UserSchema);
 
 export default User;

@@ -1,4 +1,4 @@
-import { prouductServices } from "./bike_services";
+import { prouductServices } from "./house.service";
 import sendResponse from "../../utils/sendResponse";
 import catchAsync from "../../utils/catchAsync";
 import { StatusCodes } from 'http-status-codes';

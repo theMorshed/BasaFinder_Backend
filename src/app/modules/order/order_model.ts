@@ -1,5 +1,5 @@
 import { Schema, Model, Types, model } from 'mongoose';
-import ProductModel from '../product/bike_model';
+import ProductModel from '../house/house.model';
 import { TOrder } from './order_type';
 
 const orderSchema = new Schema<TOrder>(

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { TProduct } from "./bike_type";
+import { TProduct } from "./house.types";
 
 // Define the schema for the Bike product
 const productSchema = new mongoose.Schema<TProduct>(

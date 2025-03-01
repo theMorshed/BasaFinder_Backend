@@ -10,9 +10,9 @@
 import { StatusCodes } from "http-status-codes";
 import AppError from "../../errors/AppError";
 import User from "./user.model";
-import { TUser } from "./user.types";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { IUser } from "./user.interface";
 
 /**
  * Service for User Registration
@@ -25,7 +25,7 @@ import jwt from 'jsonwebtoken';
  * @returns The newly created user object.
  * @throws AppError if the user already exists.
  */
-export const registerService = async (payload: TUser) => {
+export const registerService = async (payload: IUser) => {
     const { email } = payload;
 
     const existingUser = await User.findOne({ email });
@@ -68,7 +68,15 @@ export const loginService = async (email: string, password: string) => {
     return { user, token };
 };
 
+
+/**
+ * Service for retrieve User
+ * This function handles retrieve User:
+*
+ * @returns An object containing the all users.
+ * @returns An empty object if user doesn't exists.
+ */
 export const getAllUserService = async() => {
-    const users = await User.find({role: 'customer'});
+    const users = await User.find({});
     return users;
 }

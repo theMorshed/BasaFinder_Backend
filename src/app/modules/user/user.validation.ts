@@ -11,7 +11,7 @@ import { z } from 'zod';
  * - `'user'`: A standard user.
  * - `'admin'`: An administrator with elevated permissions.
  */
-const UserRoleEnum = z.enum(['customer']);
+const UserRoleEnum = z.enum(['admin', 'landlord', 'tenant']);
 
 // Create validation schema for user creation
 /**

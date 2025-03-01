@@ -1,8 +1,8 @@
 import express from 'express';
-import { productControllers } from './bike_controller';
+import { productControllers } from './house.controller';
 
 // Create an instance of the express Router
-const productRouter = express.Router();
+const router = express.Router();
 
 /**
  * Endpoint to create a new bike product.
@@ -11,7 +11,7 @@ const productRouter = express.Router();
  * Controller: productControllers.createProduct
  * Description: This route handles the creation of a new bike product in the database.
  */
-productRouter.post('/create-bike', productControllers.createBike);
+router.post('/create-bike', productControllers.createBike);
 
 /**
  * Endpoint to get all bikes in the database.
@@ -21,7 +21,7 @@ productRouter.post('/create-bike', productControllers.createBike);
  * Description: This route fetches a list of all bike products, including their details.
  * Query parameter: Optional searchTerm to filter by name, brand, or category.
  */
-productRouter.get('/', productControllers.getAllBikes);
+router.get('/', productControllers.getAllBikes);
 
 /**
  * Endpoint to get a specific bike product by its ID.
@@ -31,7 +31,7 @@ productRouter.get('/', productControllers.getAllBikes);
  * Description: This route fetches a single bike product based on the provided productId.
  * Path parameter: productId - The ID of the bike product.
  */
-productRouter.get('/:productId', productControllers.getSingleBike);
+router.get('/:productId', productControllers.getSingleBike);
 
 /**
  * Endpoint to update a bike product's details.
@@ -41,7 +41,7 @@ productRouter.get('/:productId', productControllers.getSingleBike);
  * Description: This route updates the details of a specific bike product.
  * Path parameter: productId - The ID of the bike product to be updated.
  */
-productRouter.put('/:productId', productControllers.updateBike);
+router.put('/:productId', productControllers.updateBike);
 
 /**
  * Endpoint to delete a bike product.
@@ -51,7 +51,7 @@ productRouter.put('/:productId', productControllers.updateBike);
  * Description: This route deletes a bike product from the database.
  * Path parameter: productId - The ID of the bike product to be deleted.
  */
-productRouter.delete('/:productId', productControllers.deleteBike);
+router.delete('/:productId', productControllers.deleteBike);
 
 // Export the router so it can be used in the main app file
-export default productRouter;
+export const productRouter = router;
