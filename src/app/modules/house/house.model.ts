@@ -1,71 +1,47 @@
-import mongoose from "mongoose";
-import { TProduct } from "./house.types";
+import mongoose, { Schema } from "mongoose";
+import { IHouse } from "./house.interface";
 
-// Define the schema for the Bike product
-const productSchema = new mongoose.Schema<TProduct>(
+// Define the schema for the House
+const houseSchema = new mongoose.Schema<IHouse>(
     {
-        // The name of the bike
-        name: {
+        // The location of the house
+        location: {
             type: String,
-            required: [true, 'Bike name is required'],  // Bike name must be provided
-            trim: true  // Trim spaces around the name
+            required: [true, 'Location is required'],  // Location must be provided
+            trim: true  // Trim spaces around the location
         },
 
-        // The brand of the bike
-        brand: {
-            type: String,
-            required: [true, 'Brand is required'],  // Bike brand must be provided
-            trim: true  // Trim spaces around the brand name
-        },
-
-        model: {
-            type: String,
-            required: [true, 'Model is required'],
-            trim: true
-        },
-
-        image: {
-            type: String,
-            required: [true, 'Image is required'],
-            trim: true
-        },
-
-        // The price of the bike
-        price: {
-            type: Number,
-            required: [true, 'Price is required'],  // Price must be provided
-            min: [0, 'Price must be a positive number'],  // Price must be greater than or equal to 0
-        },
-
-        // The category of the bike (e.g., Mountain, Road, etc.)
-        category: {
-            type: String,
-            required: [true, 'Category is required'],  // Category must be provided
-            enum: {
-                values: ['Mountain', 'Road', 'Featured'],  // Valid categories
-                message: '{VALUE} is not a valid category'  // Error message if an invalid category is provided
-            }
-        },
-
-        // The description of the bike
+        // The description of the house
         description: {
             type: String,
             required: [true, 'Description is required'],  // Description must be provided
             trim: true  // Trim spaces around the description
         },
 
-        // The available quantity of the bike
-        quantity: {
+        // The rent amount of the house
+        rent_amount: {
             type: Number,
-            required: [true, 'Quantity is required'],  // Quantity must be provided
-            min: [0, 'Quantity cannot be negative'],  // Quantity cannot be negative
+            required: [true, 'Rent amount is required'],  // Price must be provided
+            min: [0, 'Rent amount must be a positive number'],  // Price must be greater than or equal to 0
         },
 
-        // Whether the bike is in stock or not
-        inStock: {
-            type: Boolean,
-            required: [true, 'In stock status is required'],
-        }
+        // The Bedrooms number of the house
+        bedrooms_number: {
+            type: Number,
+            required: [true, 'Bedrooms number is required'],  // Number must be provided
+            min: [0, 'Bedrooms number must be a positive number'],  // Number must be greater than or equal to 0
+        },
+
+        images: {
+            type: [String],
+            required: [true, 'Images is required'],
+        },
+
+        // The available quantity of the bike
+        landlord_id: {
+            type: Schema.Types.ObjectId,
+            required: [true, 'Landlord id is required'],  // ID must be provided
+        },
     },
     {
         timestamps: true  // Automatically create "createdAt" and "updatedAt" fields
@@ -73,7 +49,7 @@ const productSchema = new mongoose.Schema<TProduct>(
 );
 
 // Create the model using the schema
-const ProductModel = mongoose.model('Product', productSchema);
+const House = mongoose.model('House', houseSchema);
 
-// Export the ProductModel to use it in other parts of the application
-export default ProductModel;
+// Export the House to use it in other parts of the application
+export default House;

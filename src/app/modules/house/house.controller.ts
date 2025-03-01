@@ -1,72 +1,64 @@
-import { prouductServices } from "./house.service";
 import sendResponse from "../../utils/sendResponse";
 import catchAsync from "../../utils/catchAsync";
 import { StatusCodes } from 'http-status-codes';
+import { createHouseService, deleteHouseByIDService, getAllHouseService, getHouseByIDService, updateHouseByIDSevice } from "./house.service";
 
-const createBike = catchAsync(async(req, res) => {    
-    const result = await prouductServices.createBikeIntoDB(req.body);
+export const createHouse = catchAsync(async(req, res) => {    
+    const result = await createHouseService(req.body);
 
     sendResponse(res, {
         statusCode: StatusCodes.CREATED,
         success: true,
-        message: 'Bike created successfully',
+        message: 'House created successfully',
         data: result
     })
 });
 
-const getAllBikes = catchAsync(async(req, res) => {    
+export const getAllHouses = catchAsync(async(req, res) => {    
     const searchTerm = req.query.searchTerm as string | undefined;
-    const bikes = await prouductServices.getAllBikes(req.query);
+    const houses = await getAllHouseService(req.query);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         success: true,
-        message: 'Bike retrieved successfully',
-        data: bikes
+        message: 'House retrieved successfully',
+        data: houses
     })
 });
 
-const getSingleBike = catchAsync(async(req, res) => { 
-    const { productId } = req.params;   
-    const result = await prouductServices.getBikeByID(productId);
+export const getSingleHouse = catchAsync(async(req, res) => { 
+    const { houseId } = req.params;   
+    const result = await getHouseByIDService(houseId);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         success: true,
-        message: `Bike-${productId} retrieved successfully`,
+        message: `House-${houseId} retrieved successfully`,
         data: result
     })
 });
 
-const updateBike = catchAsync(async(req, res) => { 
-    const { productId } = req.params;   
-    const bikeData = req.body;
-    const result = await prouductServices.updateBikeByID(productId, bikeData);
+export const updateHouse = catchAsync(async(req, res) => { 
+    const { houseId } = req.params;   
+    const houseData = req.body;
+    const result = await updateHouseByIDSevice(houseId, houseData);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         success: true,
-        message: `Bike-${productId} updated successfully`,
+        message: `House-${houseId} updated successfully`,
         data: result
     })
 });
 
-const deleteBike = catchAsync(async(req, res) => { 
-    const { productId } = req.params;   
-    const result = await prouductServices.deleteBikeByID(productId);
+export const deleteHouse = catchAsync(async(req, res) => { 
+    const { houseId } = req.params;   
+    const result = await deleteHouseByIDService(houseId);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         success: true,
-        message: `Bike-${productId} deleted successfully`,
+        message: `House-${houseId} deleted successfully`,
         data: result
     })
 });
-
-export const productControllers = {
-    createBike,
-    getAllBikes,
-    getSingleBike,
-    updateBike,
-    deleteBike,
-};
