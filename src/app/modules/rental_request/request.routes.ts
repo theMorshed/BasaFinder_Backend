@@ -2,14 +2,14 @@ import express from 'express';
 import auth from '../../middlewares/auth';
 import { createRentalRequest, deleteRequest, getAllRequest, getSingleRequest, getTenantRequest, updateRequest, verifyPayment } from './request.controller';
 
-const orderRouter = express.Router();
+const router = express.Router();
 
-orderRouter.get('/verify/:order_id', verifyPayment);
-orderRouter.post('/create-request', auth('tenant'), createRentalRequest);
-orderRouter.get('/', auth('admin', 'tenant'), getAllRequest);
-orderRouter.get('/:requestId', auth('tenant'), getSingleRequest);
-orderRouter.put('/:requestId', auth('tenant'), updateRequest);
-orderRouter.delete('/:requestId', auth('tenant'), deleteRequest);
-orderRouter.get('/tenant/:tenantId', auth('tenant'), getTenantRequest);
+router.get('/verify/:order_id', verifyPayment);
+router.post('/create-request', auth('tenant'), createRentalRequest);
+router.get('/', auth('admin', 'tenant'), getAllRequest);
+router.get('/:requestId', auth('tenant'), getSingleRequest);
+router.put('/:requestId', auth('tenant'), updateRequest);
+router.delete('/:requestId', auth('tenant'), deleteRequest);
+router.get('/tenant/:tenantId', auth('tenant'), getTenantRequest);
 
-export default orderRouter;
+export const requestRoutes = router;

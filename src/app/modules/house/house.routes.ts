@@ -13,4 +13,4 @@ router.put('/:houseId', validateRequest(updateHouseSchema), updateHouse);
 router.delete('/:houseId', deleteHouse);
 
 // Export the router so it can be used in the main app file
-export const productRouter = router;
+export const houseRoutes = router;
