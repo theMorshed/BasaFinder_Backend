@@ -63,9 +63,10 @@ export const loginService = async (email: string, password: string) => {
     }
 
     // Generate a JWT token
-    const token = jwt.sign({ id: user?._id, role: user?.role, email: user?.email }, process.env.JWT_ACCESS_SECRET!, { expiresIn: '1d' });
+    const accessToken = jwt.sign({ id: user?._id, role: user?.role, email: user?.email }, process.env.JWT_ACCESS_SECRET!, { expiresIn: '1d' });
+    const refreshToken = jwt.sign({ id: user?._id, role: user?.role, email: user?.email }, process.env.JWT_REFRESH_SECRET!, { expiresIn: '7d' });
 
-    return { user, token };
+    return { user, accessToken, refreshToken };
 };
 
 

@@ -60,7 +60,9 @@ export const login = catchAsync(async (req, res) => {
         message: 'Login successful',
         statusCode: StatusCodes.OK,
         data: {
-            token: user.token
+            accessToken: user.accessToken,
+            refreshToken: user.refreshToken,
+            user: user
         }
     })
 });
