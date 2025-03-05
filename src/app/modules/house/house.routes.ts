@@ -1,5 +1,5 @@
 import express from 'express';
-import { createHouse, deleteHouse, getAllHouses, getSingleHouse, updateHouse } from './house.controller';
+import { createHouse, deleteHouse, getAllHouses, getAllLandlorHouses, getSingleHouse, updateHouse } from './house.controller';
 import validateRequest from '../../middlewares/validateRequest';
 import { registerHouseSchema, updateHouseSchema } from './house.validation';
 
@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post('/create-house', validateRequest(registerHouseSchema), createHouse);
 router.get('/', getAllHouses);
+router.get('/:landlordId', getAllLandlorHouses);
 router.get('/:houseId', getSingleHouse);
 router.put('/:houseId', validateRequest(updateHouseSchema), updateHouse);
 router.delete('/:houseId', deleteHouse);

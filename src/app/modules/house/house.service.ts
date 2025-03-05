@@ -18,6 +18,11 @@ export const getAllHouseService = async (query: Record<string, unknown>): Promis
   return houses;
 }
 
+export const getAllLandlordHouseService = async(landlordId: string) => {
+  const result = await House.find({landlord: landlordId});
+  return result;
+}
+
 export const getHouseByIDService = async (id: string) => {
   // Find and return the bike by its ID
   const result = await House.findById(id);

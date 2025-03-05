@@ -1,7 +1,7 @@
 import sendResponse from "../../utils/sendResponse";
 import catchAsync from "../../utils/catchAsync";
 import { StatusCodes } from 'http-status-codes';
-import { createHouseService, deleteHouseByIDService, getAllHouseService, getHouseByIDService, updateHouseByIDSevice } from "./house.service";
+import { createHouseService, deleteHouseByIDService, getAllHouseService, getAllLandlordHouseService, getHouseByIDService, updateHouseByIDSevice } from "./house.service";
 
 export const createHouse = catchAsync(async(req, res) => {    
     const result = await createHouseService(req.body);
@@ -17,6 +17,18 @@ export const createHouse = catchAsync(async(req, res) => {
 export const getAllHouses = catchAsync(async(req, res) => {    
     const searchTerm = req.query.searchTerm as string | undefined;
     const houses = await getAllHouseService(req.query);
+
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        success: true,
+        message: 'House retrieved successfully',
+        data: houses
+    })
+});
+
+export const getAllLandlorHouses = catchAsync(async(req, res) => {    
+    const { landlordId } = req.params;
+    const houses = await getAllLandlordHouseService(landlordId);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,

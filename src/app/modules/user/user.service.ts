@@ -81,3 +81,9 @@ export const getAllUserService = async() => {
     const users = await User.find({});
     return users;
 }
+
+export const updateUserService = async (userId: string, payload: Partial<IUser>) => {
+  // Find the house by ID and update it with the new data
+  const result = await User.findByIdAndUpdate(userId, payload, { new: true });
+  return result;
+}
