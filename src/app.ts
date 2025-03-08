@@ -21,7 +21,7 @@ app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
 // API Routes setup
 // Routes for product-related operations like creating and fetching products
 app.use('/api/house', houseRoutes);
-app.use('/api/request', requestRoutes);
+app.use('/api/rental-request', requestRoutes);
 app.use('/api/user', userRoutes);
 
 // Root route that sends a simple "Hello, World!" message

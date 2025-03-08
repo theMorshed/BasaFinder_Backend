@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post('/create-house', validateRequest(registerHouseSchema), createHouse);
 router.get('/', getAllHouses);
-router.get('/:landlordId', getAllLandlorHouses);
+router.get('/landlord/:landlordId', getAllLandlorHouses);
 router.get('/:houseId', getSingleHouse);
 router.put('/:houseId', validateRequest(updateHouseSchema), updateHouse);
 router.delete('/:houseId', deleteHouse);

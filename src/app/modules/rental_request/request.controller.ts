@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../utils/catchAsync";
 import AppError from "../../errors/AppError";
 import OrderModel from "./request.model";
-import { createRequestService, deleteRequestService, getAllRequestService, getSingleRequestService, getTenantRequestService, updateRequestService, verifyPaymentService } from "./request.service";
+import { approveRequstService, createRequestService, deleteRequestService, getAllRequestService, getSingleRequestService, getTenantRequestService, rejectRequstService, updateRequestService, verifyPaymentService } from "./request.service";
 import RentalRequest from "./request.model";
 
 export const createRentalRequest = catchAsync(async (req, res) => {
@@ -61,6 +61,30 @@ export const updateRequest = catchAsync(async (req, res) => {
         success: true,
         statusCode: StatusCodes.OK,
         message: 'request updated successfully',
+        data: request
+    })
+});
+
+export const approveRequest = catchAsync(async (req, res) => {
+    const { requestId } = req.params;
+    const request = await approveRequstService(requestId);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: StatusCodes.OK,
+        message: 'request approved successfully',
+        data: request
+    })
+});
+
+export const rejectRequest = catchAsync(async (req, res) => {
+    const { requestId } = req.params;
+    const request = await rejectRequstService(requestId);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: StatusCodes.OK,
+        message: 'request rejected successfully',
         data: request
     })
 });

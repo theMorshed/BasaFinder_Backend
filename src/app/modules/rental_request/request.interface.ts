@@ -1,11 +1,15 @@
 import { ObjectId } from 'mongoose';
 
 export interface IRentalRequest {
-    house: ObjectId;
     tenant: ObjectId;
-    status: "Pending" | "Approved" | "Rejected";
-    landlord_phone: string;
-    transaction: {
+    house: ObjectId;
+    moveInDate: Date;
+    rentalDuration: string;
+    status: "pending" | "approved" | "rejected" | "approved-pending-payment" | "rented";
+    landlordPhone?: string; // Visible after approval
+    landlord: ObjectId; // Reference to the landlord
+    paymentStatus: "pending" | "paid" | "cancelled";
+    transaction?: {
         id: string;
         transactionStatus: string;
         bank_status: string;
@@ -14,5 +18,5 @@ export interface IRentalRequest {
         method: string;
         date_time: string;
     };
-    payment_status: "Pending" | "Paid" | "Cancelled";
-}
+};
+

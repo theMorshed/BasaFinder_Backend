@@ -93,6 +93,32 @@ export const updateRequestService = async(requestId: string, payload: Partial<IR
     return rentalRequest;
 }
 
+export const approveRequstService = async(requestId: string) => {
+  const rentalRequest = await RentalRequest.findById(requestId);
+  if (!rentalRequest) {
+    throw new AppError(StatusCodes.NOT_FOUND, 'Request not found');
+  }
+
+  rentalRequest.status = "approved-pending-payment";
+  // rentalRequest.landlordPhone = req.user.phone; // Assuming landlord is logged in
+  const result = await rentalRequest.save();
+
+  return result;
+}
+
+export const rejectRequstService = async(requestId: string) => {
+  const rentalRequest = await RentalRequest.findById(requestId);
+  if (!rentalRequest) {
+    throw new AppError(StatusCodes.NOT_FOUND, 'Request not found');
+  }
+
+  rentalRequest.status = "rejected";
+  // rentalRequest.landlordPhone = req.user.phone; // Assuming landlord is logged in
+  const result = await rentalRequest.save();
+
+  return result;
+}
+
 export const deleteRequestService = async(id: string) => {
     const rentalRequest = await RentalRequest.findByIdAndDelete(id);
     return rentalRequest;
