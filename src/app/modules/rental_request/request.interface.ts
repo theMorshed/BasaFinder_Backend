@@ -3,11 +3,11 @@ import { ObjectId } from 'mongoose';
 export interface IRentalRequest {
     tenant: ObjectId;
     house: ObjectId;
+    landlord: ObjectId; // Reference to the landlord
     moveInDate: Date;
     rentalDuration: string;
     status: "pending" | "approved" | "rejected" | "approved-pending-payment" | "rented";
     landlordPhone?: string; // Visible after approval
-    landlord: ObjectId; // Reference to the landlord
     paymentStatus: "pending" | "paid" | "cancelled";
     transaction?: {
         id: string;

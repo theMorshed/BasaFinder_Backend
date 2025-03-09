@@ -13,6 +13,11 @@ const rentalRequestSchema = new Schema<IRentalRequest>(
             ref: 'User',
             required: [true, 'Tenant ID is required'],
         },
+        landlord: {
+            type: Types.ObjectId,
+            ref: 'User',
+            required: [true, 'Tenant ID is required'],
+        },
         status: {
             type: String,
             enum: ["pending", "approved", "rejected", "approved-pending-payment", "rented"],

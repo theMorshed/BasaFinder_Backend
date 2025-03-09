@@ -125,11 +125,11 @@ export const deleteRequestService = async(id: string) => {
 }
 
 export const getTenantRequestService = async(tenantId: string) => {
-    const rentalRequest = await RentalRequest.find({user: tenantId}).populate('tenant', ['name', 'email']).populate('house', ['location', 'rentAmount']);
+    const rentalRequest = await RentalRequest.find({tenant: tenantId}).populate('tenant', ['name', 'email']).populate('house', ['location', 'rentAmount']);
     return rentalRequest;
 }
 
 export const getLandlordRequestService = async(landlordId: string) => {
-    const rentalRequest = await RentalRequest.find({user: landlordId}).populate('tenant', ['name', 'email']).populate('house', ['location', 'rentAmount']);
+    const rentalRequest = await RentalRequest.find({landlord: landlordId}).populate('tenant', ['name', 'email']).populate('house', ['location', 'rentAmount']);
     return rentalRequest;
 }
