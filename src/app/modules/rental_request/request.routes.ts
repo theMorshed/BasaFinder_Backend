@@ -1,6 +1,6 @@
 import express from 'express';
 import auth from '../../middlewares/auth';
-import { approveRequest, createRentalRequest, deleteRequest, getAllRequest, getSingleRequest, getTenantRequest, rejectRequest, updateRequest, verifyPayment } from './request.controller';
+import { approveRequest, createRentalRequest, deleteRequest, getAllRequest, getLandlordRequest, getSingleRequest, getTenantRequest, rejectRequest, updateRequest, verifyPayment } from './request.controller';
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ router.get('/:requestId', auth('tenant'), getSingleRequest);
 router.put('/:requestId', auth('tenant'), updateRequest);
 router.delete('/:requestId', auth('tenant'), deleteRequest);
 router.get('/tenant/:tenantId', auth('tenant'), getTenantRequest);
+router.get('/landlord/:landlordId', auth('landlord'), getLandlordRequest);
 router.patch('/:requestId/approve', approveRequest);
 router.patch('/:requestId/reject', rejectRequest);
 

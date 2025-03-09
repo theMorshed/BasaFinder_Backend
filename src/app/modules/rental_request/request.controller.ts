@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../utils/catchAsync";
 import AppError from "../../errors/AppError";
 import OrderModel from "./request.model";
-import { approveRequstService, createRequestService, deleteRequestService, getAllRequestService, getSingleRequestService, getTenantRequestService, rejectRequstService, updateRequestService, verifyPaymentService } from "./request.service";
+import { approveRequstService, createRequestService, deleteRequestService, getAllRequestService, getLandlordRequestService, getSingleRequestService, getTenantRequestService, rejectRequstService, updateRequestService, verifyPaymentService } from "./request.service";
 import RentalRequest from "./request.model";
 
 export const createRentalRequest = catchAsync(async (req, res) => {
@@ -112,6 +112,18 @@ export const deleteRequest = catchAsync(async (req, res) => {
 export const getTenantRequest = catchAsync(async(req, res) => {
     const { tenantId } = req.params;
     const requests = await getTenantRequestService(tenantId);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: StatusCodes.OK,
+        message: 'Request retrieved successfully',
+        data: requests
+    })
+});
+
+export const getLandlordRequest = catchAsync(async(req, res) => {
+    const { landlordId } = req.params;
+    const requests = await getLandlordRequestService(landlordId);
 
     sendResponse(res, {
         success: true,
