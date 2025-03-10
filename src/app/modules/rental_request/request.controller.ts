@@ -67,7 +67,7 @@ export const updateRequest = catchAsync(async (req, res) => {
 
 export const approveRequest = catchAsync(async (req, res) => {
     const { requestId } = req.params;
-    const request = await approveRequstService(requestId);
+    const request = await approveRequstService(requestId, req.user);
 
     sendResponse(res, {
         success: true,
@@ -121,7 +121,7 @@ export const getTenantRequest = catchAsync(async(req, res) => {
     })
 });
 
-export const getLandlordRequest = catchAsync(async(req, res) => {
+export const getLandlordRequest = catchAsync(async(req, res) => {    
     const { landlordId } = req.params;
     const requests = await getLandlordRequestService(landlordId);
 

@@ -27,6 +27,7 @@ const UserRoleEnum = z.enum(['admin', 'landlord', 'tenant']);
 export const registerUserSchema = z.object({
     name: z.string().min(1, 'Name is required'),
     email: z.string().email('Invalid email address'),
+    phoneNumber: z.string().min(1, 'Phone is required'),
     password: z.string().min(6, 'Password must be at least 6 characters long'),
     role: UserRoleEnum.optional(),
     isBlocked: z.boolean().optional()

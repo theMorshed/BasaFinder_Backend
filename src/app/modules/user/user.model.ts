@@ -17,6 +17,11 @@ const UserSchema: Schema<IUser> = new Schema(
         unique: true,
         match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address'],
     },
+    phoneNumber: {
+        type: String,
+        required: [true, 'Phone is required'],
+        trim: true,
+    },
     password: {
         type: String,
         required: [true, 'Password is required'],

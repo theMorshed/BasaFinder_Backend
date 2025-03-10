@@ -63,7 +63,7 @@ export const loginService = async (email: string, password: string) => {
     }
 
     // Generate a JWT token
-    const accessToken = jwt.sign({ id: user?._id, role: user?.role, email: user?.email }, process.env.JWT_ACCESS_SECRET!, { expiresIn: '1d' });
+    const accessToken = jwt.sign({ id: user?._id, role: user?.role, email: user?.email, phone: user?.phoneNumber }, process.env.JWT_ACCESS_SECRET!, { expiresIn: '1d' });
     const refreshToken = jwt.sign({ id: user?._id, role: user?.role, email: user?.email }, process.env.JWT_REFRESH_SECRET!, { expiresIn: '7d' });
 
     return { user, accessToken, refreshToken };
@@ -80,6 +80,12 @@ export const loginService = async (email: string, password: string) => {
 export const getAllUserService = async() => {
     const users = await User.find({});
     return users;
+}
+
+
+export const getAUserService = async(userId: string) => {
+    const user = await User.findById(userId);
+    return user;
 }
 
 export const updateUserService = async (userId: string, payload: Partial<IUser>) => {

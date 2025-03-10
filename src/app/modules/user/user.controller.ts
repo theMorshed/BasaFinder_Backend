@@ -10,7 +10,7 @@
 import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { getAllUserService, loginService, registerService, updateUserService } from "./user.service";
+import { getAllUserService, getAUserService, loginService, registerService, updateUserService } from "./user.service";
 
 /**
  * Controller function to handle user registration.
@@ -29,6 +29,7 @@ export const register = catchAsync(async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        phoneNumber: user.phoneNumber,
         role: user.role
     }
 
@@ -89,5 +90,17 @@ export const getAllUser = catchAsync(async (req, res) => {
         message: 'All Users retrived sucessfully',
         statusCode: StatusCodes.OK,
         data: users
+    })
+});
+
+export const getAUser = catchAsync(async (req, res) => {
+    const { userId } = req.params;
+    const user = await getAUserService(userId);
+
+    res.status(200).json({
+        success: true,
+        message: 'User retrived sucessfully',
+        statusCode: StatusCodes.OK,
+        data: user
     })
 });

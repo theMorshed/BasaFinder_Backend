@@ -12,7 +12,7 @@ router.put('/:requestId', auth('tenant'), updateRequest);
 router.delete('/:requestId', auth('tenant'), deleteRequest);
 router.get('/tenant/:tenantId', auth('tenant'), getTenantRequest);
 router.get('/landlord/:landlordId', auth('landlord'), getLandlordRequest);
-router.patch('/:requestId/approve', approveRequest);
+router.patch('/:requestId/approve', auth('landlord'), approveRequest);
 router.patch('/:requestId/reject', rejectRequest);
 
 export const requestRoutes = router;
