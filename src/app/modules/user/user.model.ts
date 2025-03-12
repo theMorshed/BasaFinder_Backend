@@ -45,9 +45,15 @@ const UserSchema: Schema<IUser> = new Schema(
  * Pre-save middleware for hashing passwords.
  * This middleware hashes the user's password before saving it to the database.
  */
-UserSchema.pre('save', async function(next) {
-    this.password = await bcrypt.hash(this.password, Number(config.bcrypt_salt_rounds));
-    next();
+// UserSchema.pre('save', async function(next) {
+//     this.password = await bcrypt.hash(this.password, Number(config.bcrypt_salt_rounds));
+//     next();
+// });
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next(); // Hash only if password is modified
+
+  this.password = await bcrypt.hash(this.password, Number(config.bcrypt_salt_rounds));
+  next();
 });
 
 /**

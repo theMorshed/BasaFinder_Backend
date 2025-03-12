@@ -33,6 +33,12 @@ export const registerUserSchema = z.object({
     isBlocked: z.boolean().optional()
 });
 
+export const changePasswordSchema = z.object({
+    currentPassword: z.string().min(6, 'currentPassword must be at least 6 characters long'),
+    newPassword: z.string().min(6, 'newPassword must be at least 6 characters long'),
+    confirmPassword: z.string().min(6, 'confirmPassword must be at least 6 characters long'),
+})
+
 // Validation schema for login
 /**
  * Schema for User Login

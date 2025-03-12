@@ -13,6 +13,7 @@ import User from "./user.model";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { IUser } from "./user.interface";
+import config from "../../config";
 
 /**
  * Service for User Registration
@@ -68,6 +69,33 @@ export const loginService = async (email: string, password: string) => {
 
     return { user, accessToken, refreshToken };
 };
+
+export const changePasswordService = async(email: string, payload: any) => {
+    const { currentPassword, newPassword, confirmPassword } = payload;
+    // Find the user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+        throw new AppError(StatusCodes.UNAUTHORIZED, 'Invalid Email');
+    }
+    console.log(currentPassword, user.password);
+
+    // Compare the password with the stored hash
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+        throw new AppError(StatusCodes.BAD_REQUEST, 'Wrong password input');
+    }
+
+    // Validate new passwords
+    if (newPassword !== confirmPassword) {
+        throw new AppError(StatusCodes.BAD_REQUEST, 'New passwords do not match');
+    }
+
+    // this.password = await bcrypt.hash(this.password, Number(config.bcrypt_salt_rounds));
+    const hashedPassword = await bcrypt.hash(newPassword, Number(config.bcrypt_salt_rounds));
+    const result = await User.findOneAndUpdate({ email }, { password: hashedPassword });
+
+    return null;
+}
 
 
 /**

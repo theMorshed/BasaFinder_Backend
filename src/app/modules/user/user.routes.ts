@@ -8,9 +8,10 @@
  * - `loginSchema` and `registerUserSchema`: Validation schemas for user-related endpoints.
  */
 import { Router } from 'express';
-import { getAllUser, getAUser, login, register, updateUser } from './user.controller';
+import { changePassword, getAllUser, getAUser, login, register, updateUser } from './user.controller';
 import validateRequest from '../../middlewares/validateRequest';
-import { loginSchema, registerUserSchema, updateUserSchema } from './user.validation';
+import { changePasswordSchema, loginSchema, registerUserSchema, updateUserSchema } from './user.validation';
+import auth from '../../middlewares/auth';
 
 /**
  * User Routes
@@ -37,6 +38,7 @@ router.post('/register-user', validateRequest(registerUserSchema), register);
  * - Calls the `login` controller to handle the request.
  */
 router.post('/login', validateRequest(loginSchema), login);
+router.post("/change-password", auth('admin', 'tanant', 'landlord'), validateRequest(changePasswordSchema), changePassword);
 
 router.get('/', getAllUser);
 router.get('/:userId', getAUser);

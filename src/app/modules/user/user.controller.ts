@@ -10,7 +10,7 @@
 import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { getAllUserService, getAUserService, loginService, registerService, updateUserService } from "./user.service";
+import { changePasswordService, getAllUserService, getAUserService, loginService, registerService, updateUserService } from "./user.service";
 
 /**
  * Controller function to handle user registration.
@@ -79,6 +79,18 @@ export const login = catchAsync(async (req, res) => {
             refreshToken: user.refreshToken,
             user: user
         }
+    })
+});
+
+export const changePassword = catchAsync(async(req, res) => {     
+    const userEmail = req.user?.email; // Assuming req.user is set via auth middleware
+    const result = await changePasswordService(userEmail, req.body);
+
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        success: true,
+        message: `Password changed successfully`,
+        data: result
     })
 });
 
