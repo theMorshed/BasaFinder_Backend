@@ -38,7 +38,7 @@ router.post('/register-user', validateRequest(registerUserSchema), register);
  * - Calls the `login` controller to handle the request.
  */
 router.post('/login', validateRequest(loginSchema), login);
-router.post("/change-password", auth('admin', 'tanant', 'landlord'), validateRequest(changePasswordSchema), changePassword);
+router.post("/change-password", auth('admin', 'tenant', 'landlord'), validateRequest(changePasswordSchema), changePassword);
 
 router.get('/', getAllUser);
 router.get('/:userId', getAUser);
